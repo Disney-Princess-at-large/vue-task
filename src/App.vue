@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     count() {
-      return this.list.filter((ele) => ele.isDone == true).length;
+      return this.list.filter((ele) => ele.isDone == false).length;
     },
     listshow() {
       if (this.getSel == "no") {
