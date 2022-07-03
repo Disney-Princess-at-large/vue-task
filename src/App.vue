@@ -3,7 +3,11 @@
     <!-- 除了驼峰, 还可以使用-转换链接 -->
     <TodoHeader @add="addFn"></TodoHeader>
     <TodoMain :list="listshow" @delList="delFn"></TodoMain>
-    <TodoFooter :count="count" @showSel="showSelFn"></TodoFooter>
+    <TodoFooter
+      :count="count"
+      @showSel="showSelFn"
+      @clear="delChenckFn"
+    ></TodoFooter>
   </section>
 </template>
 
@@ -45,6 +49,9 @@ export default {
     },
     showSelFn(val) {
       this.getSel = val;
+    },
+    delChenckFn() {
+      this.list = this.list.filter((ele) => ele.isDone == false);
     },
   },
   computed: {

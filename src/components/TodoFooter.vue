@@ -29,7 +29,7 @@
         >
       </li>
     </ul>
-    <button class="clear-completed">清除已完成</button>
+    <button class="clear-completed" @click="delchenck">清除已完成</button>
   </footer>
 </template>
 
@@ -45,6 +45,9 @@ export default {
     change(val) {
       this.isSel = val;
       this.$emit("showSel", val);
+    },
+    delchenck() {
+      this.$emit("clear");
     },
   },
 };
