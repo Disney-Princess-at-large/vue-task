@@ -1,79 +1,144 @@
 <template>
-  <div class='todoapp'>
-    <TodoHeader @add="addFn" @setChecked="setFn"></TodoHeader>
-    <TodoMain :arr='showlist' @del="deleteFn"></TodoMain>
-    <TodoFooter :arr='list' @filterData="dataFn" @clear="clearFn">
-    </TodoFooter>
+  <div>
+    <h1>图书管理列表</h1>
+    <div class="info">
+    <input type="text"  placeholder="按书名检索"/>
+     书名：<input type="text" placeholder="请输入书名" v-model="bookObj.bookname"/>
+     作者：<input type="text" placeholder="请输入作者"  v-model="bookObj.author" />
+     出版社：<input type="text" placeholder="请输入出版社" v-model="bookObj.publisher"/>
+      <button class="add" @click="addFn">新增</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>书名</th>
+          <th>作者</th>
+          <th>出版社</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+        <MyTr></MyTr>
+    </table>
   </div>
 </template>
 
 <script>
-
-import TodoHeader from "./components/TodoHeader.vue"
-import TodoMain from "./components/TodoMain.vue"
-import TodoFooter from "./components/TodoFooter.vue"
+import MyTr from "./components/MyTr.vue"
 export default {
- data() {
-    return {
-      // list: [
-      //   { id: 100, name: "吃饭", isDone: true },
-      //   { id: 101, name: "睡觉", isDone: false },
-      //   { id: 103, name: "打豆豆", isDone: true },
-      // ],
-      list:JSON.parse(localStorage.getItem("list")) || [],
-      getSel:"all"
-    };
+ data(){
+        return{
+        bName:"",
+        bookObj:{
+        bookname:"",
+        author:"",
+        publisher:""
+        }
+        } 
+    },
+  components: {
+    MyTr
   },
- components:{
-  TodoHeader, 
-  TodoMain,
-  TodoFooter
- },
- methods:{
-  addFn(val){
-  const id=this.list[this.list.length-1] ? this.list[this.list.length-1].id+1 :100
-  this.list.push({
-  name:val,
-  isDone:false,
-  id
- })
-  },
-  deleteFn(id){
-  const index=this.list.findIndex(ele =>ele.id == id)
-  this.list.splice(index,1)
-  },
-  dataFn(val){
-    this.getSel=val
-  },
-  clearFn(){
-    this.list = this.list.filter(ele => ele.isDone == false)
-  },
-  setFn(val){
-  this.list.forEach(ele => ele.isDone = val)
-  }
- },
- computed:{
-  showlist(){
- if(this.getSel =="no"){
-  return this.list.filter(ele => !ele.isDone)
- }else if(this.getSel =="yes"){
-   return this.list.filter(ele => ele.isDone)
- }else{
-  return this.list
- }
- }
- },
- watch:{
-  list:{
-    deep:true,
-    handler(val){
-      localStorage.setItem("list",JSON.stringify(val || []))
+  methods:{
+    sendFn(){
+
+    },
+    addFn(){
+    this.$axios({
+    url:"/api/addbook",
+    method:"POST",
+    params:{},
+     data: {
+            bookname: this.bookObj.bookname,
+            author: this.bookObj.author,
+            publisher: this.bookObj.publisher
+           }
+     }).then(res =>{
+    console.log(res);
+   })
     }
   }
- }
 }
 </script>
 
-<style>
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
 
+a {
+  text-decoration: none;
+  color: #721c24;
+}
+h1 {
+  position: relative;
+  top:0px;
+  left:272px;
+  color: #333;
+  margin: 20px 0;
+}
+table {
+  position: relative;
+  top:-8px;
+  left:-51px;
+  margin: 0 auto;
+  width: 800px;
+  border-collapse: collapse;
+  color: #004085;
+}
+th {
+  padding: 10px;
+  background: #cfe5ff;
+
+  font-size: 20px;
+  font-weight: 400;
+}
+td,
+th {
+  border: 1px solid #b8daff;
+}
+td {
+  padding: 10px;
+  color: #666;
+  text-align: center;
+  font-size: 16px;
+}
+tbody tr {
+  background: #fff;
+}
+tbody tr:hover {
+  background: #e1ecf8;
+}
+.info {
+  position: relative;
+  top:-2px;
+  left:-100px;
+  width: 900px;
+  font-size: 18px;
+  margin: 50px auto;
+  text-align: center;
+}
+.info input {
+  width: 100px;
+  height: 30px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #b8daff;
+  padding-left: 5px;
+}
+.info button {
+  width: 60px;
+  height: 25px;
+  background-color: #004085;
+  outline: none;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+
+}
+.add{
+  margin-left: 10px;
+}
 </style>
