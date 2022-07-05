@@ -6,7 +6,7 @@
      书名：<input type="text" placeholder="请输入书名" v-model="bookObj.bookname"/>
      作者：<input type="text" placeholder="请输入作者"  v-model="bookObj.author" />
      出版社：<input type="text" placeholder="请输入出版社" v-model="bookObj.publisher"/>
-      <button class="add" @click="addFn">新增</button>
+      <button class="add" id="add" @click="addFn">新增</button>
     </div>
     <table>
       <thead>
@@ -18,7 +18,7 @@
           <th>操作</th>
         </tr>
       </thead>
-        <MyTr></MyTr>
+        <MyTr :list='list'></MyTr>
     </table>
   </div>
 </template>
@@ -33,18 +33,32 @@ export default {
         bookObj:{
         bookname:"",
         author:"",
-        publisher:""
-        }
+        publisher:"",
+        },
+        list:{}
         } 
     },
   components: {
     MyTr
   },
+  mounted() {
+  //渲染列表
+ this.$axios({
+    url:"/api/getbooks",
+    method:"GET",
+    params:{}
+   }).then(res =>{
+    // console.log(res);
+    this.list=res.data.data
+   })
+},
   methods:{
+    //添加图书功能
     addFn(){
     if(this.bookObj.bookname.trim().length == 0 || this.bookObj.author.trim().length == 0 ||this.bookObj.publisher.trim().length == 0) {
     return  alert('请填写完整的图书信息！');
    } 
+   document.getElementById('add').disabled='true'
     this.$axios({
     url:"/api/addbook",
     method:"POST",
@@ -56,7 +70,9 @@ export default {
            }
      }).then(res =>{
     console.log(res);
+    location.reload(true)
     if (res.status !== 201) return alert(res.data.msg)
+    // console.log(111);
    })
     },
     enter() {
@@ -64,13 +80,15 @@ export default {
         return alert('请输入书名')
      this.$axios({
         url: "/api/getbooks",
-        method: "GET",
+        // method: "GET",
         params: { // 都会axios最终拼接到url?后面
             bookname: this.bName
         }
       }).then(res => {
-          console.log(res);
-          if(res.data.data.length=0) return('不存在此图书')
+          // console.log(res.data.data);
+          if(res.data.data.length==0) return('不存在此图书')
+          this.list=res.data.data
+          // console.log(this.list);
       })
     }
   }

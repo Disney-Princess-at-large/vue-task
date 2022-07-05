@@ -1,6 +1,6 @@
 <template>
 <tbody>
-   <tr v-for="item in arr" :key="item.id">
+   <tr v-for="item in list" :key="item.id">
           <td>{{item.id}}</td>
           <td>{{item.bookname}}</td>
           <td>{{item.author}}</td>
@@ -22,16 +22,18 @@ data() {
      arr:[],
     }
 },
-mounted() {
- this.$axios({
-    url:"/api/getbooks",
-    method:"GET",
-    params:{}
-   }).then(res =>{
-    // console.log(res);
-    this.arr=res.data.data
-   })
-},
+props:['list'],
+// mounted() {
+//   //渲染列表
+//  this.$axios({
+//     url:"/api/getbooks",
+//     method:"GET",
+//     params:{}
+//    }).then(res =>{
+//     // console.log(res);
+//     this.arr=res.data.data
+//    })
+// },
 methods:{
   //删除功能
   del(id){
@@ -48,6 +50,7 @@ methods:{
      if (res.status == 200) return alert(res.data.msg)
    })
  },
+ //详情
  findFn(id){
   this.$axios({
         url: "/api/getbooks",
