@@ -5,7 +5,9 @@
           <td>{{item.bookname}}</td>
           <td>{{item.author}}</td>
           <td>{{item.publisher}}</td>
-          <td><a href="#">删除详情</a></td>
+          <td><a href="#" @click='del(item.id)'>删除</a>
+          <span>  |  </span>
+          <a href="#">详情</a></td>
         </tr>
 </tbody>
 </template>
@@ -27,6 +29,22 @@ mounted() {
     this.arr=res.data.data
    })
 },
+methods:{
+  del(id){
+    this.$axios({
+    url:"/api/delbook",
+    method:"GET",
+    params:{
+      id
+    }
+   }).then(res =>{
+    const index=this.arr.findIndex(ele =>ele.id == id);
+    this.arr.splice(index,1);
+    console.log(res);
+     if (res.status == 200) return alert(res.data.msg)
+   })
+},
+  }
 }
 </script>
 

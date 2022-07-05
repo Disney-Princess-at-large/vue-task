@@ -2,7 +2,7 @@
   <div>
     <h1>图书管理列表</h1>
     <div class="info">
-    <input type="text"  placeholder="按书名检索"/>
+    <input type="text"  placeholder="按书名检索" @keydown.enter="enter" v-model='bName'/>
      书名：<input type="text" placeholder="请输入书名" v-model="bookObj.bookname"/>
      作者：<input type="text" placeholder="请输入作者"  v-model="bookObj.author" />
      出版社：<input type="text" placeholder="请输入出版社" v-model="bookObj.publisher"/>
@@ -40,10 +40,10 @@ export default {
     MyTr
   },
   methods:{
-    sendFn(){
-
-    },
     addFn(){
+    if(this.bookObj.bookname.length == 0 || this.bookObj.author.length == 0 ||this.bookObj.publisher.length == 0) {
+    return  alert('请填写完整的图书信息！');
+   } 
     this.$axios({
     url:"/api/addbook",
     method:"POST",
@@ -55,7 +55,24 @@ export default {
            }
      }).then(res =>{
     console.log(res);
+    if (res.status !== 201) return alert(res.data.msg)
+     location.reload()
+    this.bookObj.bookname=''
+    this.bookObj.author=''
+    this.bookObj.publisher=''
    })
+    },
+    enter() {
+     this.$axios({
+        url: "/api/getbooks",
+        method: "GET",
+        params: { // 都会axios最终拼接到url?后面
+            bookname: this.bName
+        }
+      }).then(res => {
+          console.log(res);
+          if(res.data.data.length=0) return('不存在此图书')
+      })
     }
   }
 }
