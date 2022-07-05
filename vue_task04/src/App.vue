@@ -1,54 +1,210 @@
 <template>
   <div>
-    <Dog ></Dog>
+    <h1>图书管理列表</h1>
+    <div class="info">
+      <input
+        type="text"
+        placeholder="输入您要查找的图书"
+        class="input"
+        @keyup.enter="enter"
+        v-model="sName"
+      />
+
+      书名：<input type="text" placeholder="请输入书名" v-model="bookname" />
+      作者：<input type="text" placeholder="请输入作者" v-model="author" />
+      出版社：<input
+        type="text"
+        placeholder="请输入出版社"
+        v-model="publisher"
+      />
+
+      <el-button class="add" @click="addFn" ref="addBtn" :disabled="flag"
+        >新增</el-button
+      >
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>书名</th>
+          <th>作者</th>
+          <th>出版社</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <MyTr :list="list" :flag="sFlag"></MyTr>
+    </table>
   </div>
 </template>
 
 <script>
-import Dog from '@/components/Dog.vue'
+import axios from 'axios'
+axios.defaults.baseURL = 'http://www.liulongbin.top:3006'
+import MyTr from '@/components/MyTr.vue'
 export default {
-  data () {
+  components: {
+    MyTr,
+  },
+  data() {
     return {
-      arr:[
-    {
-        dogImgUrl:
-        "http://nwzimg.wezhan.cn/contents/sitefiles2029/10146688/images/21129958.jpg",
-        dogName: "博美",
-    },
-    {
-        dogImgUrl:
-        "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1224576619,1307855467&fm=26&gp=0.jpg",
-        dogName: "泰迪",
-    },
-    {
-        dogImgUrl:
-        "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2967740259,1518632757&fm=26&gp=0.jpg",
-        dogName: "金毛",
-    },
-    {
-        dogImgUrl:
-        "https://pic1.zhimg.com/80/v2-7ba4342e6fedb9c5f3726eb0888867da_1440w.jpg?source=1940ef5c",
-        dogName: "哈士奇",
-    },
-    {
-        dogImgUrl:
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563813435580&di=946902d419c3643e33a0c9113fc8d780&imgtype=0&src=http%3A%2F%2Fvpic.video.qq.com%2F3388556%2Fd0522aynh3x_ori_3.jpg",
-        dogName: "阿拉斯加",
-    },
-    {
-        dogImgUrl:
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563813454815&di=ecdd2ebf479568453d704dffacdfa12c&imgtype=0&src=http%3A%2F%2Fwww.officedoyen.com%2Fuploads%2Fallimg%2F150408%2F1-15040Q10J5B0.jpg",
-        dogName: "萨摩耶",
-    },
-]
+      bookname: '',
+      author: '',
+      publisher: '',
+      flag: false,
+      sName: '',
+      list: [],
+      sFlag: false,
     }
   },
-  components:{
-    Dog
-  }
+  methods: {
+    // 添加图书
+    addFn() {
+      if (
+        this.bookname.trim().length === 0 ||
+        this.author.trim().length === 0 ||
+        this.publisher.trim().length === 0
+      )
+        return alert('Please enter a book name')
+      this.sFlag = false
+      // 禁用按钮
+      // this.$refs.addBtn.style.disabled = true
+      this.flag = true
+      axios({
+        url: '/api/addbook', //POST请求的url地址
+        method: 'POST',
+        data: {
+          bookname: this.bookname,
+          author: this.author,
+          publisher: this.publisher,
+        }, //针对POST请求的参数拼接
+      })
+        .then((res) => {
+          // 添加成功后弹框
+          this.$message({
+            message: '图书添加成功',
+            type: 'success',
+          })
+          // 请求成功后关闭按钮禁用
+          ;(this.flag = false),
+            (this.bookname = ''),
+            (this.author = ''),
+            (this.publisher = '')
+        })
+        .catch((err) => {
+          this.flag = false
+          alert(err)
+        })
+    },
+
+    enter() {
+      if (this.sName.trim().length === 0)
+        return alert('Please enter a book name')
+      // console.log(this.sName)
+      axios({
+        url: '/api/getbooks', //GET请求的url地址
+        method: 'GET',
+        params: {
+          bookname: this.sName,
+        }, //针对GET请求的参数拼接
+      }).then((res) => {
+        // 判断是否有改图书
+        if (res.data.data.length == 0) {
+          this.$message({
+            message: '搜索不到该图书',
+            type: 'warning',
+          })
+        }
+        //
+        this.sFlag = true
+        this.list = res.data.data
+        // eventBus.$emit('list', this.list)
+        this.sName = ''
+      })
+    },
+  },
 }
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
 
+a {
+  text-decoration: none;
+  color: #721c24;
+}
+h1 {
+  text-align: center;
+  color: #333;
+  margin: 20px 0;
+}
+table {
+  margin: 0 auto;
+  width: 800px;
+  border-collapse: collapse;
+  color: #004085;
+}
+th {
+  padding: 10px;
+  background: #cfe5ff;
+
+  font-size: 20px;
+  font-weight: 400;
+}
+td,
+th {
+  border: 1px solid #b8daff;
+}
+td {
+  padding: 10px;
+  color: #666;
+  text-align: center;
+  font-size: 16px;
+}
+tbody tr {
+  background: #fff;
+}
+tbody tr:hover {
+  background: #e1ecf8;
+}
+.info {
+  width: 900px;
+  margin: 50px auto;
+  text-align: center;
+}
+.info input {
+  width: 80px;
+  height: 25px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #b8daff;
+  padding-left: 5px;
+}
+.info button {
+  width: 60px;
+  height: 25px;
+  background-color: #004085;
+  outline: none;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.add {
+  position: absolute;
+  top: 113px;
+  margin-left: 10px;
+  text-align: center;
+  line-height: 25px;
+  color: #000;
+  padding: 2px 9px !important;
+}
+.input {
+  width: 150px !important;
+  height: 25px !important;
+}
 </style>
