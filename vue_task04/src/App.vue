@@ -66,7 +66,10 @@ export default {
         this.author.trim().length === 0 ||
         this.publisher.trim().length === 0
       )
-        return alert('Please enter a book name')
+        return this.$message({
+          message: 'The input box cannot be empty',
+          type: 'warning',
+        })
       this.sFlag = false
       // 禁用按钮
       // this.$refs.addBtn.style.disabled = true
@@ -86,6 +89,7 @@ export default {
             message: '图书添加成功',
             type: 'success',
           })
+          location.reload()
           // 请求成功后关闭按钮禁用
           ;(this.flag = false),
             (this.bookname = ''),
@@ -100,7 +104,10 @@ export default {
 
     enter() {
       if (this.sName.trim().length === 0)
-        return alert('Please enter a book name')
+        return this.$message({
+          message: 'The input box cannot be empty',
+          type: 'warning',
+        })
       // console.log(this.sName)
       axios({
         url: '/api/getbooks', //GET请求的url地址
