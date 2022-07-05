@@ -18,7 +18,7 @@
           <th>操作</th>
         </tr>
       </thead>
-        <MyTr :list="list"></MyTr>
+        <MyTr></MyTr>
     </table>
   </div>
 </template>

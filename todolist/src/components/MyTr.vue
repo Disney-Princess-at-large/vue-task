@@ -5,9 +5,12 @@
           <td>{{item.bookname}}</td>
           <td>{{item.author}}</td>
           <td>{{item.publisher}}</td>
-          <td><a href="#" @click.prevent='del(item.id)'>删除</a>
+          <td>
+            <a href="#" @click.prevent='del(item.id)'>删除</a>
           <span>  |  </span>
-          <a href="#" @click.prevent="find(item.id)>详情</a></td>
+           <a href="#" @click.prevent='findFn(item.id)'>详情</a>
+          <!-- <a href="#" @click.prevent="findFn(item.id)>详情</a> -->
+          </td>
         </tr>
 </tbody>
 </template>
@@ -17,12 +20,6 @@ export default {
 data() {
     return {
      arr:[],
-     props:{
-      list:{
-        type:Array,
-        default:()=>([])
-      }
-     }
     }
 },
 mounted() {
@@ -36,6 +33,7 @@ mounted() {
    })
 },
 methods:{
+  //删除功能
   del(id){
     this.$axios({
     url:"/api/delbook",
@@ -49,9 +47,9 @@ methods:{
     console.log(res);
      if (res.status == 200) return alert(res.data.msg)
    })
-},
-find(id){
-this.$axios({
+ },
+ findFn(id){
+  this.$axios({
         url: "/api/getbooks",
         params: { id },
       }).then((res) => {
@@ -60,7 +58,7 @@ this.$axios({
           `作者：${info.author}; 出版社：${info.publisher}; 书名：${info.bookname}`
         );
       });
-}
+ }
   }
 }
 </script>
