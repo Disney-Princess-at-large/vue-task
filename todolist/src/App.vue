@@ -18,7 +18,7 @@
           <th>操作</th>
         </tr>
       </thead>
-        <MyTr></MyTr>
+        <MyTr :list="list"></MyTr>
     </table>
   </div>
 </template>
@@ -28,6 +28,7 @@ import MyTr from "./components/MyTr.vue"
 export default {
  data(){
         return{
+        // list:[],
         bName:"",
         bookObj:{
         bookname:"",
@@ -41,7 +42,7 @@ export default {
   },
   methods:{
     addFn(){
-    if(this.bookObj.bookname.length == 0 || this.bookObj.author.length == 0 ||this.bookObj.publisher.length == 0) {
+    if(this.bookObj.bookname.trim().length == 0 || this.bookObj.author.trim().length == 0 ||this.bookObj.publisher.trim().length == 0) {
     return  alert('请填写完整的图书信息！');
    } 
     this.$axios({
@@ -56,13 +57,11 @@ export default {
      }).then(res =>{
     console.log(res);
     if (res.status !== 201) return alert(res.data.msg)
-     location.reload()
-    this.bookObj.bookname=''
-    this.bookObj.author=''
-    this.bookObj.publisher=''
    })
     },
     enter() {
+       if (this.bName.trim().length === 0)
+        return alert('请输入书名')
      this.$axios({
         url: "/api/getbooks",
         method: "GET",
