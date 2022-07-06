@@ -5,9 +5,7 @@
 
       <p>下面显示注册组件-动态切换:</p>
       <div style="border: 1px solid black;">
-         <keep-alive>
-        <component :is="comName"></component>
-    </keep-alive>
+          <component :is="comName"></component>
       </div>
   </div>
 </template>
