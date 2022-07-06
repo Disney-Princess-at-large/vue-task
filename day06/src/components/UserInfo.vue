@@ -11,5 +11,12 @@
   </div>
 </template>
 <script>
-export default {}
+export default {
+activated() {
+ console.log('activated----userinfo');
+},
+deactivated() {
+  console.log('deactivated----userinfo');  
+},
+}
 </script>

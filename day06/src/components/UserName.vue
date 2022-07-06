@@ -12,5 +12,12 @@
 </template>
 
 <script>
-export default {}
+export default {
+ activated() {
+ console.log('activated----username');
+},
+deactivated() {
+  console.log('deactivated----username');  
+},
+}
 </script>
