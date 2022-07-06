@@ -1,9 +1,9 @@
 <template>
 <el-form :model="ruleForm" status-icon label-width="100px" class="demo-ruleForm">
- <el-form-item label="电子邮箱">
+ <!-- <el-form-item label="电子邮箱"> -->
  <!-- <el-input type="text" v-model="ruleForm.emil" placeholder="电子邮箱"></el-input> -->
   <slot name="email"></slot>
- </el-form-item>
+ <!-- </el-form-item> -->
  <el-form-item label="密码">
 <el-input type="password" v-model="ruleForm.pass" placeholder="密码"></el-input>
 </el-form-item>

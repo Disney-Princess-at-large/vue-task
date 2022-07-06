@@ -6,9 +6,13 @@
     <keep-alive>
     <component :is="comName">
       <template v-slot:phone>
-         <el-input type="text" v-model="ruleForm.phone" placeholder="手机号码"></el-input>
+        <el-form-item label="手机号码">
+        <el-input type="text" v-model="ruleForm.phone" placeholder="手机号码"></el-input>
+      </el-form-item>
       </template>
        <template v-slot:email>
+         <el-form-item label="电子邮箱">
+          </el-form-item>
        <el-input type="text" v-model="ruleForm.emil" placeholder="电子邮箱"></el-input>
       </template>
     </component>

@@ -1,9 +1,9 @@
 <template>
  <el-form :model="ruleForm" status-icon label-width="100px" class="demo-ruleForm">
- <el-form-item label="手机号码">
+ <!-- <el-form-item label="手机号码"> -->
  <!-- <el-input type="text" v-model="ruleForm.phone" placeholder="手机号码"></el-input> -->
+<!-- </el-form-item> -->
  <slot name="phone"></slot>
-</el-form-item>
  <el-form-item label="密码">
  <el-input type="password" v-model="ruleForm.pass" placeholder="密码"></el-input>
 </el-form-item>
