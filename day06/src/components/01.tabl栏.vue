@@ -3,7 +3,16 @@
      <button @click="comName = 'Phone'">手机注册</button>
       <button @click="comName = 'Email'">邮箱注册</button>
   <div>
-    <component :is="comName"></component>
+    <keep-alive>
+    <component :is="comName">
+      <template v-slot:phone>
+         <el-input type="text" v-model="ruleForm.phone" placeholder="手机号码"></el-input>
+      </template>
+       <template v-slot:email>
+       <el-input type="text" v-model="ruleForm.emil" placeholder="电子邮箱"></el-input>
+      </template>
+    </component>
+    </keep-alive>
   </div>
 </div>
 </template>
@@ -24,13 +33,10 @@ import Email from "./components/Email.vue"
 </script>
 
 <style>
-body{
+ /* body{
  background-color:#ccc;
-}
-.main{
-  width:400px;
-  height:600px;
+} */
+ .main{
   margin: 20px auto;
-  background-color: #fff;
-}
+}  
 </style>
