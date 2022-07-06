@@ -102,12 +102,9 @@ export default {
       params: {}, //针对GET请求的参数拼接
     }).then((res) => {
       if (this.flag) {
-        // this.arr = this.list
         this.$parent.sFlag = true
-        // console.log(this.list);
       }
       this.arr = res.data.data
-      // console.log(res)
     })
   },
 

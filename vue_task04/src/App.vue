@@ -72,7 +72,7 @@ export default {
         })
       this.sFlag = false
       // 禁用按钮
-      // this.$refs.addBtn.style.disabled = true
+      this.$refs.addBtn.disabled = true
       this.flag = true
       axios({
         url: '/api/addbook', //POST请求的url地址
@@ -194,7 +194,7 @@ tbody tr:hover {
 .info button {
   width: 60px;
   height: 25px;
-  background-color: #004085;
+  background-color: #409eff;
   outline: none;
   border: 0;
   color: #fff;
@@ -208,7 +208,7 @@ tbody tr:hover {
   text-align: center;
   line-height: 25px;
   color: #000;
-  padding: 2px 9px !important;
+  padding: 1px 9px !important;
 }
 .input {
   width: 150px !important;
