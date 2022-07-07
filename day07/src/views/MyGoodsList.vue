@@ -31,7 +31,7 @@
         {{ str }}</span></td>
         <td>
              <button class="btn btn-danger btn-sm main" @click="delFn(scope.row.id)">删除</button>
-              <button class="btn btn-success btn-sm">编辑</button>
+              <button class="btn btn-success btn-sm" v-isShow="demo">编辑</button>
         </td>
     </template>
   </MyTable>
@@ -44,6 +44,9 @@ export default {
  data() {
     return {
      list:[], 
+    //  array:[1,0,1,0,1,0,1,0,1,0]
+    newList:['admin','test','developer'],
+    demo:"admin"
      }
  },
  created(){
@@ -51,6 +54,13 @@ export default {
     url:"/api/goods"
   }).then((res)=>{
     console.log(res);
+    // res.data.data.forEach((ele)=>{
+    //   ele.Show = 1
+    // })
+    // this.list=res.data.data
+    // this.array.forEach((ele,index)=>{
+    //   res.data.data[index].Show=ele
+    // })
     this.list=res.data.data
   })
 },

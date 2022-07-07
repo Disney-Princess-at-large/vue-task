@@ -15,6 +15,14 @@ Vue.directive("focus", {
   },
 });
 
+Vue.directive("isShow", {
+  inserted(el, binding, Vnode) {
+    if (!Vnode.context.newList.includes(binding.value)) {
+      el.style.display = "none";
+    }
+  },
+});
+
 new Vue({
   render: (h) => h(App),
 }).$mount("#app");
