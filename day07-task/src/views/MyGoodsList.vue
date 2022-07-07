@@ -46,7 +46,8 @@
           </button>
           <button
             class="btn btn-success btn-sm"
-            :class="{ show: scope.row.show == 0 }"
+            v-display
+            :data-show="scope.row.show"
           >
             编辑
           </button>
@@ -79,7 +80,6 @@ export default {
         res.data.data[index].show = item
       })
       this.list = res.data.data
-      console.log(this.list)
     })
   },
 
@@ -102,7 +102,12 @@ export default {
 
   directives: {
     display: {
-      inserted(el, binding, vnode) {},
+      inserted(el) {
+        let n = el.getAttribute('data-show')
+        if (n == 0) {
+          el.classList.add('show')
+        }
+      },
     },
   },
 }
