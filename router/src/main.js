@@ -10,6 +10,7 @@ import SongList from './views/Second/SongList.vue'
 import HotList from './views/Second/HotList.vue'
 import NewList from './views/Second/NewList.vue'
 import SoarList from './views/Second/SoarList.vue'
+import NotFound from './views/NotFound.vue'
 
 
 Vue.use(VueRouter)
@@ -59,6 +60,10 @@ const routes = [
   {
     path: "/part",
     component: Part
+  },
+  {
+    path: "*",
+    component: NotFound
   }
 ]
 const router = new VueRouter({
