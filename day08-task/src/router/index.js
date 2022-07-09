@@ -5,6 +5,11 @@ import Order from '@/views/Order'
 import Home from '@/views/Home'
 import Sort from '@/views/Sort';
 import My from '@/views/My'
+// 二级路由
+import Recommend from '@/views/second/Recommend';
+
+// 三级路由
+import Info from '@/views/third/Info';
 
 Vue.use(VueRouter)
 
@@ -16,6 +21,18 @@ const routes = [
     {
         path: '/home',
         component: Home,
+        children:[
+            {
+                path: 'recommend',
+                component: Recommend,
+                children:[
+                    {
+                        path: 'info',
+                        component: Info,
+                    }
+                ]
+            }
+        ]
     },
     {
         path: '/sort',
