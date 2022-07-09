@@ -10,6 +10,7 @@ import Part from "@/views/Part.vue";
 import Ranking from "@/views/Second/Ranking.vue";
 import Recommend from "@/views/Second/Recommend.vue";
 import SongList from "@/views/Second/SongList.vue";
+import Music from "@/views/Third/Music.vue";
 
 const routes = [
   {
@@ -27,6 +28,12 @@ const routes = [
       {
         path: "recommend",
         component: Recommend,
+        children: [
+          {
+            path: "music",
+            component: Music,
+          },
+        ],
       },
       {
         path: "songList",
