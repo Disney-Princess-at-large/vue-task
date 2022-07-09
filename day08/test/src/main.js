@@ -26,6 +26,10 @@ const routes = [
     component: Part,
   },
   {
+    path: "/part/:username", // 有:的路径代表要接收具体的值
+    component: Part,
+  },
+  {
     path: "*",
     component: NotFound,
   },

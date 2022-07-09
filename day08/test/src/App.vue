@@ -4,7 +4,9 @@
     <div class="footer_wrap">
       <router-link to="/find">发现音乐</router-link>
       <router-link to="/my">我的音乐</router-link>
-      <router-link to="/part">朋友</router-link>
+      <!-- <router-link to="/part">朋友</router-link> -->
+      <router-link to="/part?name=小传">朋友-小传</router-link>
+      <router-link to="/part/小智">朋友-小智</router-link>
     </div>
     <div class="top">
       <router-view></router-view>
