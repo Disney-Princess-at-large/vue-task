@@ -1,5 +1,18 @@
 <template>
-  <div>find页面</div>
+  <div>
+    <!-- <p>推荐</p>
+    <p>排行榜</p>
+    <p>歌单</p> -->
+    <div class="nav_main">
+      <router-link to="/find/recommend">推荐</router-link>
+      <router-link to="/find/ranking">排行榜</router-link>
+      <router-link to="/find/songlist">歌单</router-link>
+    </div>
+
+    <div style="1px solid red;">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,29 +20,27 @@ export default {};
 </script>
 
 <style scoped>
-.footer_wrap {
-  position: fixed;
-  left: 0;
-  top: 0;
-  display: flex;
-  width: 100%;
+.nav_main {
+  background-color: red;
+  color: white;
+  padding: 10px 0;
+}
+.nav_main a {
   text-align: center;
-  background-color: #333;
-  color: #ccc;
-}
-.footer_wrap a {
-  flex: 1;
   text-decoration: none;
-  padding: 20px 0;
+  color: white;
+  font-size: 12px;
+  margin: 7px 17px 0;
+  padding: 0px 15px 2px 15px;
+  height: 20px;
+  display: inline-block;
   line-height: 20px;
-  background-color: #333;
-  color: #ccc;
-  border: 1px solid black;
+  border-radius: 20px;
 }
-.footer_wrap a:hover {
-  background-color: #555;
+.nav_main a:hover {
+  background-color: brown;
 }
-.top {
-  padding-top: 62px;
+.nav_main .router-link-active{
+  background-color: brown;
 }
 </style>

@@ -7,6 +7,9 @@ import Find from "@/views/Find.vue";
 import My from "@/views/My.vue";
 import NotFound from "@/views/NotFound.vue";
 import Part from "@/views/Part.vue";
+import Ranking from "@/views/Second/Ranking.vue";
+import Recommend from "@/views/Second/Recommend.vue";
+import SongList from "@/views/Second/SongList.vue";
 
 const routes = [
   {
@@ -16,6 +19,20 @@ const routes = [
   {
     path: "/find",
     component: Find,
+    children: [
+      {
+        path: "ranking",
+        component: Ranking,
+      },
+      {
+        path: "recommend",
+        component: Recommend,
+      },
+      {
+        path: "songList",
+        component: SongList,
+      },
+    ],
   },
   {
     path: "/my",
