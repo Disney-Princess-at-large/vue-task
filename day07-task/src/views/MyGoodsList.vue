@@ -106,6 +106,7 @@ export default {
         let n = el.getAttribute('data-show')
         if (n == 0) {
           el.classList.add('show')
+          el.style.display = 'none'
         }
       },
     },
