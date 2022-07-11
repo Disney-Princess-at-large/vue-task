@@ -6,7 +6,8 @@
 
 
 
-    <router-link to="/home/recommend">点我二级路由recommend</router-link>
+    <span @click="btn('/home/recommend')">点我二级路由recommend</span>
+    <span @click="btn('/home/today')">点我二级路由Today</span>
     
     <!-- 二级路由挂载点 -->
     <router-view></router-view>
@@ -17,7 +18,13 @@
 
 <script>
 export default {
-
+  methods:{
+    btn(fPath){
+      this.$router.push({
+        path: fPath,
+      })
+    }
+  }
 }
 </script>
 

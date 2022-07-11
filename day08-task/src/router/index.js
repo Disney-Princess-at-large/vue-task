@@ -7,6 +7,7 @@ import Sort from '@/views/Sort';
 import My from '@/views/My'
 // 二级路由
 import Recommend from '@/views/second/Recommend';
+import Today from '@/views/second/Today';
 
 // 三级路由
 import Info from '@/views/third/Info';
@@ -31,6 +32,10 @@ const routes = [
                         component: Info,
                     }
                 ]
+            },
+            {
+                path: 'today',
+                component:Today,
             }
         ]
     },
