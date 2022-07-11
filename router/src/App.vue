@@ -6,7 +6,10 @@
       <a href="#/part">朋友</a> -->
       <router-link to="/find">发现音乐</router-link>
       <router-link to="/my">我的音乐</router-link>
-      <router-link to="/part">朋友</router-link>
+      <!-- <router-link to="/part?id=1">朋友</router-link>
+       -->
+      <router-link to="/part/周杰伦">朋友</router-link>
+
     </div>
     <div class="top">
       <router-view></router-view>

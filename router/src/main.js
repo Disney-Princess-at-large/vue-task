@@ -62,7 +62,7 @@ const routes = [
     component: My
   },
   {
-    path: "/part",
+    path: "/part/:name",
     component: Part
   },
   {
@@ -71,7 +71,17 @@ const routes = [
   }
 ]
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
+})
+const isLogin = true; // 登录状态(未登录)
+router.beforeEach((to, from, next) => {
+  if (to.path === "/my" && isLogin === false) {
+    alert("请登录")
+    next(false) // 阻止路由跳转
+  } else {
+    next() // 正常放行
+  }
 })
 new Vue({
   render: h => h(App),
