@@ -30,4 +30,8 @@ export default {
 </script>
 
 <style>
+.main {
+  padding-top: 46px;
+  padding-bottom: 50px;
+}
 </style>

@@ -3,28 +3,33 @@ import VueRouter from 'vue-router'
 import Layout from '@/views/Layout'
 import Home from '@/views/Home'
 import Search from '@/views/Search'
+import Play from '@/views/Play'
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-       redirect:"/layout/home"
+        redirect: "/layout/home"
+    },
+    {
+        path: '/play',
+        component: Play,
     },
     {
         path: '/layout',
         component: Layout,
-        children:[
+        children: [
             {
                 path: 'home',
                 component: Home,
-                meta:{
+                meta: {
                     title: '首页',
                 }
             },
             {
                 path: 'search',
                 component: Search,
-                meta:{
+                meta: {
                     title: '搜索',
                 }
             }
